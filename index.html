@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DISASTRACK Command Center</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="brand-wrap">
+    <div class="brand">DISASTRACK</div>
+    <div class="subtitle">DISASTER TRACKING & EVACUATION SYSTEM</div>
+  </div>
+
+  <div class="hero-tag">#DISASTRACKJUARA</div>
+
+  <div class="top-clock">
+    <span>SYSTEM TIME</span>
+    <b id="clock">--:--:--</b>
+  </div>
+</header>
+
+<main>
+
+<section class="hero-strip">
+  <div>
+    <span class="eyebrow">DISASTRACK</span>
+    <h1>COMMAND CENTER</h1>
+    <p>Track field devices, victim severity, GPS position and evacuation status in real time.</p>
+  </div>
+
+  <div class="connection">
+    <i id="mqttDot"></i>
+    <span id="mqttText">MQTT DISCONNECTED</span>
+  </div>
+</section>
+
+<section class="stats">
+
+  <div class="stat">
+    <span>TRACKERS ONLINE</span>
+    <b id="trackerCount">0</b>
+    <small>Field tracking units</small>
+  </div>
+
+  <div class="stat">
+    <span>STATIONS ONLINE</span>
+    <b id="stationCount">0</b>
+    <small>Evacuation stations</small>
+  </div>
+
+  <div class="stat">
+    <span>TOTAL VICTIMS</span>
+    <b id="victimCount">0</b>
+    <small>Reported incidents</small>
+  </div>
+
+  <div class="stat">
+    <span>EVACUATED</span>
+    <b id="evacCount">0</b>
+    <small>Confirmed at station</small>
+  </div>
+
+</section>
+
+<section class="map-grid">
+
+  <article class="card map-card">
+
+    <div class="card-head">
+      <div>
+        <span class="eyebrow">FIELD UNIT</span>
+        <h2>TRACKER MAP</h2>
+      </div>
+
+      <span class="legend purple">
+        <i></i> TRACKER GPS
+      </span>
+    </div>
+
+    <div id="trackerMap" class="map"></div>
+
+    <div class="map-foot">
+      <span>🟣 Online / No Victim</span>
+      <span>🟢 Minor</span>
+      <span>🟡 Severe</span>
+      <span>🔴 Critical</span>
+    </div>
+
+  </article>
+
+
+  <article class="card map-card">
+
+    <div class="card-head">
+      <div>
+        <span class="eyebrow">EVACUATION UNIT</span>
+        <h2>STATION MAP</h2>
+      </div>
+
+      <span class="legend blue">
+        <i></i> STATION GPS
+      </span>
+    </div>
+
+    <div id="stationMap" class="map"></div>
+
+    <div class="map-foot">
+      <span>🔵 Station</span>
+      <span>GPS FIXED</span>
+      <span>LIVE POSITION</span>
+    </div>
+
+  </article>
+
+</section>
+
+
+<section class="lower-grid">
+
+  <article class="card">
+
+    <div class="card-head">
+      <div>
+        <span class="eyebrow">TRIAGE</span>
+        <h2>VICTIM CONDITION</h2>
+      </div>
+    </div>
+
+    <div class="sev-grid">
+
+      <div class="sev-box minor">
+        <span>MINOR</span>
+        <b id="sumMinor">0</b>
+      </div>
+
+      <div class="sev-box severe">
+        <span>SEVERE</span>
+        <b id="sumSevere">0</b>
+      </div>
+
+      <div class="sev-box critical">
+        <span>CRITICAL</span>
+        <b id="sumCritical">0</b>
+      </div>
+
+    </div>
+
+    <div class="type-title">VICTIM TYPE</div>
+
+    <div class="type-grid">
+
+      <div class="sev-box human">
+        <span>HUMAN</span>
+        <b id="humanCount">0</b>
+      </div>
+
+      <div class="sev-box animal">
+        <span>ANIMAL</span>
+        <b id="animalCount">0</b>
+      </div>
+
+    </div>
+
+  </article>
+
+
+  <article class="card">
+
+    <div class="card-head">
+      <div>
+        <span class="eyebrow">DEVICE STATUS</span>
+        <h2>ACTIVE DEVICES</h2>
+      </div>
+    </div>
+
+    <div id="devices" class="device-list">
+      <div class="empty">Waiting for devices...</div>
+    </div>
+
+  </article>
+
+</section>
+
+
+<section class="card table-card">
+
+  <div class="card-head">
+    <div>
+      <span class="eyebrow">VICTIM OVERVIEW</span>
+      <h2>EVACUATION STATUS</h2>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Device</th>
+          <th>Victim</th>
+          <th>Severity</th>
+          <th>Type</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody id="victims">
+        <tr>
+          <td colspan="5" class="empty">No victim data</td>
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  #DISASTRACKJUARA · DISASTRACK COMMAND CENTER
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>
